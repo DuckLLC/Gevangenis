@@ -15,9 +15,10 @@ import org.raddelgo14.EventHandlers.OnMove;
 import org.raddelgo14.Guis.GuiListener;
 import org.raddelgo14.UserManagement.PlayerData;
 import org.raddelgo14.Utils.Configs;
-import org.raddelgo14.Utils.Cooldown;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Main extends JavaPlugin implements Listener {
@@ -29,7 +30,7 @@ public class Main extends JavaPlugin implements Listener {
         return m;
     }
 
-    public ArrayList<Cooldown> coolDowns = new ArrayList<Cooldown>();
+    public Map<String, Long> cooldowns = new HashMap<>();
     @Override
     public void onEnable(){
         m = this;
@@ -57,11 +58,6 @@ public class Main extends JavaPlugin implements Listener {
                 for (Player p : Bukkit.getOnlinePlayers()){
                     ptime.updatePlaytime(1, p);
                 }
-
-                for (Cooldown c : coolDowns){
-                    c.countDown();
-                }
-
             }
         }, 0L, 20L);
     }

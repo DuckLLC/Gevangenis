@@ -27,6 +27,7 @@ public class PlayerData {
         return currentRole;
     }
 
+    public Player getPlayer(){return Bukkit.getPlayer(isPointingTo);}
     static public enum Roles{
         PRISONER,
         GUARD,

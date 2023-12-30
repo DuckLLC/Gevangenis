@@ -8,12 +8,15 @@ import org.bukkit.persistence.PersistentDataType;
 
 import org.raddelgo14.Main;
 
+import java.util.Objects;
+
 public class NBTDataWriter {
 
     public static void setNBTData(ItemStack itemStack, String key, String value) {
         ItemMeta meta = itemStack.getItemMeta();
 
         // Set the NBT data on the item
+        assert meta != null;
         meta.getPersistentDataContainer().set(
                 new NamespacedKey(Main.getMain(), key),
                 PersistentDataType.STRING,
@@ -36,7 +39,7 @@ public class NBTDataWriter {
 
     // Helper method to check if an item has NBT data with a specific key
     private static boolean hasNBTData(ItemStack itemStack, String key) {
-        return itemStack.getItemMeta().getPersistentDataContainer().has(
+        return Objects.requireNonNull(itemStack.getItemMeta()).getPersistentDataContainer().has(
                 new NamespacedKey(Main.getMain(), key),
                 PersistentDataType.STRING
         );
@@ -46,11 +49,11 @@ public class NBTDataWriter {
         ItemMeta meta = itemStack.getItemMeta();
 
         // Retrieve the NBT data from the item
-        String value = meta.getPersistentDataContainer().get(
+        assert meta != null;
+
+        return meta.getPersistentDataContainer().get(
                 new NamespacedKey(Main.getMain(), key),
                 PersistentDataType.STRING
         );
-
-        return value;
     }
 }

@@ -7,37 +7,31 @@ import java.util.Objects;
 
 public class Cooldown {
 
-    public Player pRef;
-    public String contexs;
-    int time;
-    public Cooldown(String contex, int time, Player player){
-        this.pRef = player;
-        this.contexs = contex;
-        this.time = time;
-        Main.getMain().coolDowns.add(this);
-    }
+    static long cooldownTimeInSeconds = 2;
 
-    public void deleteTempCooldown(){
-        if (Objects.equals(contexs, "Temp")){Main.getMain().coolDowns.remove(this);}
-    }
+    public static boolean isOnCooldown(Player player) {
+        String playerName = player.getName();
 
-    public void countDown(){
-        this.time--;
-        if (isTimerUp(false)){
-            Main.getMain().coolDowns.remove(this);
+        if (Main.getMain().cooldowns.containsKey(playerName)) {
+            long lastTimeUsed = Main.getMain().cooldowns.get(playerName);
+            long currentTime = System.currentTimeMillis() / 1000; // Convert to seconds
+
+
+            if (currentTime - lastTimeUsed < cooldownTimeInSeconds) {
+                // Player is still on cooldown
+                return true;
+            }
         }
+
+        // Player is not on cooldown or cooldown has expired
+        return false;
     }
 
-    public boolean isTimerUp(boolean isTemp){
-        if (isTemp) return true;
-        return time <= 0;
-    }
+    // Example method to set a cooldown for a player
+    public static void setCooldown(Player player) {
+        String playerName = player.getName();
+        long currentTime = System.currentTimeMillis() / 1000; // Convert to seconds
 
-    public String getContext(){
-        return contexs;
-    }
-
-    public Player getPlayer(){
-        return pRef;
+        Main.getMain().cooldowns.put(playerName, currentTime);
     }
 }
