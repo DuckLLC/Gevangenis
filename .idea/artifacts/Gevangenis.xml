@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Gevangenis">
+    <output-path>$PROJECT_DIR$/out/artifacts/Gevangenis</output-path>
+    <root id="archive" name="Gevangenis.jar">
+      <element id="module-output" name="Gevangenis" />
+    </root>
+  </artifact>
+</component>

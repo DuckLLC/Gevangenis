@@ -1,0 +1,26 @@
+main: org.raddelgo14.Main
+
+name: gevangenis
+version: 0.1
+author: Raddelgo14EXE
+
+api-version: '1.20'
+
+commands:
+  GetStatistics:
+    permission: op
+    description: 'Get the info of yourself or others'
+  SelectTeam:
+    description: 'Set your team'
+  GetContraband:
+    description: 'Finds Contraband'
+  GiveTestItem:
+    description: 'Gives item'
+    permission: op
+
+permissions:
+  roles.guard:
+    description: 'Allows you to be guard'
+  roles.army:
+    description: 'Allows you to be in the Army'
+
