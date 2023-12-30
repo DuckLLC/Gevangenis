@@ -11,9 +11,11 @@ import org.raddelgo14.Commands.GetStatistics;
 import org.raddelgo14.Commands.GiveTestItem;
 import org.raddelgo14.Commands.SelectTeam;
 import org.raddelgo14.DataUpdaters.PlaytimeUpdater;
+import org.raddelgo14.EventHandlers.OnMove;
 import org.raddelgo14.Guis.GuiListener;
 import org.raddelgo14.UserManagement.PlayerData;
 import org.raddelgo14.Utils.Configs;
+import org.raddelgo14.Utils.Cooldown;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -26,6 +28,8 @@ public class Main extends JavaPlugin implements Listener {
     public static Main getMain(){
         return m;
     }
+
+    public ArrayList<Cooldown> coolDowns = new ArrayList<Cooldown>();
     @Override
     public void onEnable(){
         m = this;
@@ -39,6 +43,7 @@ public class Main extends JavaPlugin implements Listener {
 
         Bukkit.getPluginManager().registerEvents(this, this);
         Bukkit.getPluginManager().registerEvents(new GuiListener(), this);
+        Bukkit.getPluginManager().registerEvents(new OnMove(), this);
 
         Bukkit.getLogger().info("Gevangenis: Plugin Enabled");
         Bukkit.getLogger().info("Running Version: " + this.getDescription().getVersion());
@@ -52,6 +57,11 @@ public class Main extends JavaPlugin implements Listener {
                 for (Player p : Bukkit.getOnlinePlayers()){
                     ptime.updatePlaytime(1, p);
                 }
+
+                for (Cooldown c : coolDowns){
+                    c.countDown();
+                }
+
             }
         }, 0L, 20L);
     }
