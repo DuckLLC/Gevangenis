@@ -1,9 +1,6 @@
 package org.raddelgo14.EventHandlers;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,13 +24,14 @@ public class OnMove implements Listener {
 
        if ((playerLocationUnderGround.getBlock().getType() == Material.RED_WOOL) && !(Cooldown.isOnCooldown(mv.getPlayer()))){
            if (ReusedMethods.hasContraband(mv.getPlayer())){
-               mv.getPlayer().getActivePotionEffects().add(new PotionEffect(PotionEffectType.GLOWING, 45, 1));
+               mv.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 900, 1));
                for (Player p : Bukkit.getOnlinePlayers()){
                    for (PlayerData pd : Main.getMain().playerData){
                        if (pd.containsPlayer(p)){
                            if (pd.getPlayer().hasPermission("op")){pd.getPlayer().sendMessage(ChatColor.RED + mv.getPlayer().getName() + " HAS CONTRABAND");}
                            if (pd.getRole().equals(PlayerData.Roles.GUARD)){
                                pd.getPlayer().sendMessage(ChatColor.RED + mv.getPlayer().getName() + " HAS CONTRABAND");
+                               pd.getPlayer().playSound(pd.getPlayer().getLocation(), Sound.ENTITY_HORSE_DEATH, 20, 1);
                                break;
                            }
                        }

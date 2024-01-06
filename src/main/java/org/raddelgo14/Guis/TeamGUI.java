@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.raddelgo14.Main;
 import org.raddelgo14.UserManagement.PlayerData;
+import org.raddelgo14.Utils.DateFormater;
 
 public class TeamGUI extends GUIs{
     public TeamGUI() {
@@ -14,6 +15,7 @@ public class TeamGUI extends GUIs{
                 if (pd.containsPlayer(player)){
                     if (pd.getRole() == PlayerData.Roles.PRISONER){
                         player.sendMessage("You are already a Prisoner!");
+
                     }else{
                         player.sendMessage("Role set to Prisoner!");
                         pd.setRole(PlayerData.Roles.PRISONER);
@@ -29,8 +31,12 @@ public class TeamGUI extends GUIs{
                     if (pd.getRole() == PlayerData.Roles.GUARD){
                         player.sendMessage("You are already a Guard!");
                     }else{
-                        player.sendMessage("Role set to Guard!");
-                        pd.setRole(PlayerData.Roles.GUARD);
+                        if (pd.playtime >= (30 * 60)) {
+                            player.sendMessage("Role set to Guard!");
+                            pd.setRole(PlayerData.Roles.GUARD);
+                        }else{
+                            player.sendMessage("You don't have enough playtime! Required Playtime is 30 minutes. Current playtime: " + DateFormater.formatDate(pd.playtime));
+                        }
                     }
                     break;
                 }
@@ -43,8 +49,12 @@ public class TeamGUI extends GUIs{
                     if (pd.getRole() == PlayerData.Roles.ARMY){
                         player.sendMessage("You are already a Army Official!");
                     }else{
-                        player.sendMessage("Role set to Army Official!");
-                        pd.setRole(PlayerData.Roles.ARMY);
+                        if (pd.playtime >= (120 * 60)) {
+                            player.sendMessage("Role set to an Army Official!");
+                            pd.setRole(PlayerData.Roles.GUARD);
+                        }else{
+                            player.sendMessage("You don't have enough playtime! Required Playtime is 2 hours. Current playtime: " + DateFormater.formatDate(pd.playtime));
+                        }
                     }
                     break;
                 }

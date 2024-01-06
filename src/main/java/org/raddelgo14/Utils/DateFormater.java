@@ -9,6 +9,6 @@ public class DateFormater {
         int minutes = secAndMin / 60;
         int second = secAndMin % 60;
 
-        return hours + " H " + minutes + " M " + second + " S";
+        return hours + " Hours " + minutes + " Minutes " + second + " Seconds";
     }
 }

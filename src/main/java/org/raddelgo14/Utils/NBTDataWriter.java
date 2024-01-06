@@ -12,6 +12,13 @@ import java.util.Objects;
 
 public class NBTDataWriter {
 
+    /**
+     * @param itemStack The item you are adding NBT (Named Binary Tag) data to
+     * @param key The "Address" of the NBT data
+     * @param value The full value of the key. Primary piece of data.
+     *
+     * @apiNote Adding unnecessary NBT data is not recommended
+     */
     public static void setNBTData(ItemStack itemStack, String key, String value) {
         ItemMeta meta = itemStack.getItemMeta();
 
